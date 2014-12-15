@@ -5,6 +5,7 @@
 var expect     = require('chai').expect,
     Note       = require('../../server/models/note'),
     cp         = require('child_process'),
+    fs         = require('fs'),
     db         = require('../helpers/helpers').getdb(),
     Lab        = require('lab'),
     lab        = exports.lab = Lab.script(),
@@ -113,4 +114,18 @@ describe('Note', function(){
     });
   });
 
+  describe('.upload', function(){
+    it('should add a photo record and upload to S3', function(done){
+        var u      = {token: 'token'},
+            file   = fs.createReadStream(__dirname + '/../assets/test_img.png'),
+            name   = 'test_img.png',
+            noteId = 1;
+
+        Note.upload(u, file, name, noteId, function(err, res){
+            if(err){console.log(err);}
+            expect(err).to.not.be.ok;
+            done();
+        });
+    });
+  });
 });
