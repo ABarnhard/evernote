@@ -43,7 +43,7 @@ describe('User', function(){
             avatar:'http://images.apple.com/global/elements/flags/16x16/usa_2x.png'
         };
         User.register(input, function(err){
-            console.log(err);
+            if(err){console.log(err);}
             expect(err).to.be.null;
             done();
         });
