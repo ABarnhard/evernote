@@ -1,7 +1,7 @@
 {
-  "name": "hapi-technologies",
+  "name": "evernote",
   "version": "1.0.0",
-  "description": "Hapi Technologies",
+  "description": "Evernote",
   "engines": {
     "node": "0.10.x"
   },
@@ -9,11 +9,17 @@
     "type": "git",
     "url": "https://github.com/nss-cohort-2014-06-07/hapi-technologies"
   },
+  "bin": {
+    "coveralls": "./node_modules/coveralls/bin/coveralls.js"
+  },
   "scripts": {
     "start": "node server/index.js",
-    "postinstall": "grunt deploy"
+    "postinstall": "grunt deploy",
+    "syntax": "grunt build",
+    "test": "make test",
+    "coveralls": "make test-cov | coveralls"
   },
-  "author": "Chyld Medford <chyld.medford@gmail.com>",
+  "author": "Adam Barnhard <admbarn@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "async": "^0.9.0",
