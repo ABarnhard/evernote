@@ -77,8 +77,9 @@ describe('Note', function(){
 
   describe('.show', function(){
     it('should return the specific note for the user', function(done){
-        var u = {id: 1};
-        Note.show(u, 1, function(err, note){
+        var u      = {id: 1},
+            noteId = 1;
+        Note.show(u, noteId, function(err, note){
             if(err){console.log(err);}
             expect(err).to.not.be.ok;
             expect(note).to.be.ok;
@@ -103,8 +104,9 @@ describe('Note', function(){
 
   describe('.nuke', function(){
     it('should delete a user\'s note', function(done){
-        var u = {id: 1};
-        Note.nuke(u, 1, function(err, count){
+        var u      = {id: 1},
+            noteId = 1;
+        Note.nuke(u, noteId, function(err, count){
             if(err){console.log(err);}
             expect(err).to.not.be.ok;
             expect(count).to.be.ok;
