@@ -130,4 +130,18 @@ describe('Note', function(){
         });
     });
   });
+
+  describe('.uploadmobile', function(){
+    it('should upload a b64 encoded image to S3 and add a db record', function(done){
+        var u      = {token: 'token'},
+            b64    = 'thisisab64encodedstring',
+            noteId = 1;
+
+        Note.uploadmobile(u, b64, noteId, function(err, res){
+            if(err){console.log(err);}
+            expect(err).to.not.be.ok;
+            done();
+        });
+    });
+  });
 });
