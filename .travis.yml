@@ -17,3 +17,7 @@ after_script:
   - npm run coveralls
 env:
   global:
+    - DATABASE_URL=postgres://postgres@localhost/evernote_test
+    - AWS_BUCKET=adam-evernote-test
+    - secure: "bEm1Z4kfiglqKB+NavG8gMWCOqA9q3mAZsXcZZtPPUlGrJDMuYVK+lEDrH2/kAK3c8DKLz86csuC6fP9CoaWWWFbfb0WtPdcHMFzkHcPNjJEoLnA9Cau6tRAmm2hgqj70GcbMrCF+juUAr5hVmdOAra686ypLtvPAUU9VUNbddo="
+    - secure: "Qk/G2+bXo0FkiCMd6pFKwFl0sNUwgSEEwTFiW5OtgxiPu4vzyH0bij2YBSZfX8TmQwy2PW/nH+sDUd6dG2KhrZUVaPn3OZh1ZCSmujQlGWBtTvYcLeTjMsnSFz2qXLvxKpFYcySyejLSqtfyUoF3FgP1hQX/2gBH6R5HGeJXDq4="
