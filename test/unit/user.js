@@ -38,13 +38,47 @@ describe('User', function(){
   describe('.register', function(){
     it('should register a new user', function(done){
         var input = {
-            username:'bob',
+            username:'sam',
             password:'1234',
             avatar:'http://images.apple.com/global/elements/flags/16x16/usa_2x.png'
         };
         User.register(input, function(err){
             if(err){console.log(err);}
             expect(err).to.be.null;
+            done();
+        });
+    });
+    it('should NOT register a new user (duplicate username)', function(done){
+        var input = {
+            username:'bob',
+            password:'1234',
+            avatar:'http://images.apple.com/global/elements/flags/16x16/usa_2x.png'
+        };
+        User.register(input, function(err){
+            // if(err){console.log(err);}
+            expect(err).to.be.ok;
+            done();
+        });
+    });
+  });
+
+  describe('.login', function(){
+    it('should login new user', function(done){
+        User.login({username:'bob',password:'1234'}, function(user){
+            expect(user).to.be.ok;
+            expect(user.username).to.equal('bob');
+            done();
+        });
+    });
+    it('should NOT login user (bad username)', function(done){
+        User.login({username:'jim',password:'1234'}, function(user){
+            expect(user).to.not.be.ok;
+            done();
+        });
+    });
+    it('should NOT login user (bad password)', function(done){
+        User.login({username:'bob',password:'12345'}, function(user){
+            expect(user).to.not.be.ok;
             done();
         });
     });
