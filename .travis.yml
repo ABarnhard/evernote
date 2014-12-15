@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "0.10"
+services:
+  - postgresql
+addons:
+  postgresql: "9.3"
+notifications:
+  email: false
+script:
+  - npm run syntax
+  - npm test
+before_script:
+  - psql -c 'CREATE DATABASE evernote_test;' -U postgres
+  - cd test/scripts; ./create-db.sh evernote_test; cd ../../;
+after_script:
+  - npm run coveralls
+env:
+  global:
