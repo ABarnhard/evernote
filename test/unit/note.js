@@ -119,7 +119,7 @@ describe('Note', function(){
   describe('.upload', function(){
     it('should add a photo record and upload to S3', function(done){
         var u      = {token: 'token'},
-            file   = fs.createReadStream(__dirname + '/../assets/test_img.png'),
+            file   = fs.createReadStream(__dirname + '/../fixtures/test_img.png'),
             name   = 'test_img.png',
             noteId = 1;
 
