@@ -19,16 +19,7 @@ describe('notes list', function(){
   });
 
   it('should create a note', function(){
-    var image = path.resolve(__dirname, '../../fixtures/test_img.png');
-
-    element(by.model('note.title')).sendKeys('test title');
-    // h.debug('red');
-    element(by.model('note.body')).sendKeys('test body');
-    element(by.model('note.tags')).sendKeys('a,b,c');
-    element(by.css('input[type="file"]')).sendKeys(image);
-    // h.debug('blue');
-    element(by.css('button[ng-click]')).click();
-
+    createNote('test title', 'test body', 'a,b,c');
     expect(element(by.model('note.title')).getAttribute('value')).toEqual('');
     expect(element(by.model('note.body')).getAttribute('value')).toEqual('');
     expect(element(by.model('note.tags')).getAttribute('value')).toEqual('');
@@ -36,6 +27,11 @@ describe('notes list', function(){
 
   });
 
+  it('should go to the note detail', function(){
+    createNote('test title', 'test body', 'a,b,c');
+    element(by.repeater('note in notes').row(0)).element(by.css('td:nth-child(2) > a')).click();
+    expect(element(by.css('div[ui-view] > h1')).getText()).toEqual('test title');
+  });
 });
 
 function login(){
@@ -44,4 +40,15 @@ function login(){
   element(by.model('user.password')).sendKeys('1234');
   element(by.css('button[ng-click]')).click();
   browser.get('/#/notes');
+}
+
+function createNote(title, body, tags){
+  var image = path.resolve(__dirname, '../../fixtures/test_img.png');
+  element(by.model('note.title')).sendKeys(title);
+  // h.debug('red');
+  element(by.model('note.body')).sendKeys(body);
+  element(by.model('note.tags')).sendKeys(tags);
+  element(by.css('input[type="file"]')).sendKeys(image);
+  // h.debug('blue');
+  element(by.css('button[ng-click]')).click();
 }
