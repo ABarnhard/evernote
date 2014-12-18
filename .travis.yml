@@ -5,6 +5,7 @@ services:
   - postgresql
 addons:
   postgresql: "9.3"
+  sauce_connect: true
 notifications:
   email: false
 script:
@@ -13,6 +14,11 @@ script:
 before_script:
   - psql -c 'CREATE DATABASE evernote_test;' -U postgres
   - cd test/scripts; ./create-db.sh evernote_test; cd ../../;
+  # must have & on the end, tells it to run in the background.
+  # specify port here instead of in the ENV section so we don't 
+  # have conflicts between node server for unit tests and this one.
+  - PORT=9000 node server/index.js&
+  - sleep 5
 after_script:
   - npm run coveralls
 env:
@@ -21,3 +27,7 @@ env:
     - AWS_BUCKET=adam-evernote-test
     - secure: "bEm1Z4kfiglqKB+NavG8gMWCOqA9q3mAZsXcZZtPPUlGrJDMuYVK+lEDrH2/kAK3c8DKLz86csuC6fP9CoaWWWFbfb0WtPdcHMFzkHcPNjJEoLnA9Cau6tRAmm2hgqj70GcbMrCF+juUAr5hVmdOAra686ypLtvPAUU9VUNbddo="
     - secure: "Qk/G2+bXo0FkiCMd6pFKwFl0sNUwgSEEwTFiW5OtgxiPu4vzyH0bij2YBSZfX8TmQwy2PW/nH+sDUd6dG2KhrZUVaPn3OZh1ZCSmujQlGWBtTvYcLeTjMsnSFz2qXLvxKpFYcySyejLSqtfyUoF3FgP1hQX/2gBH6R5HGeJXDq4="
+    # SAUCE_ACCESS_KEY
+    - secure: "V5vswYiLW/2Y8aca+0XbNhfArOa0yUjCnUaFz38Om7UTXmlZOu7k71nJTWhcDaSn0bGzr8bkCWDsjkb4e9TGy2Wtx1Hhb7TAAKPhi36cIEMziuFUFUI5LyFkx3kwEIVmQr/t8jzb01vxcx+VD2yYPmBwEK13Um0eveaygGlVDHU="
+    # SAUCE_USERNAME
+    - secure: "gDAaUq+B3bvtLQnqVZ8rMXfXPd7fgUj8Xfz0uRM/5+IEpz5FfSgXVre8L2AsO0LQmrcRGrHH9CHIML0PRPaS50MS/vKNf/TOBgEtL7pn4ffq1gQadty9qYKV17H3Eb/o48TDLGRUCvGnsF8zqBtWY5XQWnJZhfopZ8astWq1CN4="
