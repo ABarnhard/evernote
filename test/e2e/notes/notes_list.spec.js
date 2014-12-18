@@ -22,14 +22,18 @@ describe('notes list', function(){
     var image = path.resolve(__dirname, '../../fixtures/test_img.png');
 
     element(by.model('note.title')).sendKeys('test title');
-    h.debug('red');
+    // h.debug('red');
     element(by.model('note.body')).sendKeys('test body');
     element(by.model('note.tags')).sendKeys('a,b,c');
     element(by.css('input[type="file"]')).sendKeys(image);
+    // h.debug('blue');
+    element(by.css('button[ng-click]')).click();
 
-    h.debug('blue');
+    expect(element(by.model('note.title')).getAttribute('value')).toEqual('');
+    expect(element(by.model('note.body')).getAttribute('value')).toEqual('');
+    expect(element(by.model('note.tags')).getAttribute('value')).toEqual('');
+    expect(element.all(by.repeater('note in notes')).count()).toBeGreaterThan(0);
 
-    expect(element(by.css('a[ui-sref="notes.list"]')).isDisplayed()).toBeTruthy();
   });
 
 });
